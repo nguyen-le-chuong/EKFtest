@@ -6,8 +6,8 @@
 class MeasurementPackage {
  public:
   enum SensorType{
-    LASER,
-    RADAR
+    GYRO,
+    ACCEL,
   } sensor_type_;
 
   long long timestamp_;
