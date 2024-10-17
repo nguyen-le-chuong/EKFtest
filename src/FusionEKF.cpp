@@ -120,20 +120,20 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
    * Update
    */
 
-  if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR) {
-    // Radar updates (non-linear)
-    // Compute Jacobian matrix Hj
-    Hj_ = tools.CalculateJacobian(ekf_.x_);
-    ekf_.H_ = Hj_; // Use Jacobian matrix for radar update
-    ekf_.R_ = R_radar_;
-    ekf_.UpdateEKFStep1(measurement_pack.raw_measurements_); // Extended Kalman Filter update
-    ekf_.UpdateEKFStep2();
-  } else {
-    // Laser updates (linear)
-    ekf_.H_ = H_laser_;
-    ekf_.R_ = R_laser_;
-    ekf_.Update(measurement_pack.raw_measurements_); // Standard Kalman Filter update
-  }
+  // if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR) {
+  //   // Radar updates (non-linear)
+  //   // Compute Jacobian matrix Hj
+  //   Hj_ = tools.CalculateJacobian(ekf_.x_);
+  //   ekf_.H_ = Hj_; // Use Jacobian matrix for radar update
+  //   ekf_.R_ = R_radar_;
+  ekf_.UpdateEKFStep1(measurement_pack.raw_measurements_); // Extended Kalman Filter update
+  ekf_.UpdateEKFStep2();
+  // } else {
+  //   // Laser updates (linear)
+  //   ekf_.H_ = H_laser_;
+  //   ekf_.R_ = R_laser_;
+  //   ekf_.Update(measurement_pack.raw_measurements_); // Standard Kalman Filter update
+  // }
 
   // Print the updated state and covariance matrix
   cout << "x_ = " << ekf_.x_ << endl;
